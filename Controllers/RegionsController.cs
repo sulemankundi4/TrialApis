@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TrialApis.Data;
 using TrialApis.Models.Domains;
 using TrialApis.Models.DTOs;
+using TrialApis.Repositories;
 
 namespace TrialApis.Controllers
 {
@@ -11,17 +12,18 @@ namespace TrialApis.Controllers
     public class RegionsController : ControllerBase
     {
         private readonly NZWalksDbContext _dbContext;
-
-        public RegionsController(NZWalksDbContext dbContext)
+        private readonly IRegionRepository _regionRepository;
+        public RegionsController(NZWalksDbContext dbContext, IRegionRepository regionRepository)
         {
             _dbContext = dbContext;
+            _regionRepository = regionRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             //Get Data from the database -- Domain Model
-            var regionsDomain = await _dbContext.Regions.ToListAsync();
+            var regionsDomain = await _regionRepository.GetAllAsync();
 
             // Map domain models to DTOs
             var regionDto = new List<RegionDto>();
@@ -42,7 +44,7 @@ namespace TrialApis.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetRegionById([FromRoute] Guid id)
         {
-            var regionById = await _dbContext.Regions.FindAsync(id);
+            var regionById = await _regionRepository.GetRegionByIdAsync(id);
 
             if (regionById == null)
             {
@@ -71,8 +73,7 @@ namespace TrialApis.Controllers
                 RegionImageUrl = requestRegionData.RegionImageUrl
             };
 
-            await _dbContext.Regions.AddAsync(regionDomainModel);
-            await _dbContext.SaveChangesAsync();
+            regionDomainModel = await _regionRepository.CreateAsync(regionDomainModel);
 
             // Map data back to the dto
             var regionDto = new RegionDto
@@ -89,18 +90,21 @@ namespace TrialApis.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateRegion([FromRoute] Guid id, [FromBody] UpdateRegionRequestDto updateRegionRequestDto)
         {
-            var regionDomainModel = await _dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
+
+            var regionDomainModel = new Region
+            {
+                Name = updateRegionRequestDto.Name,
+                Code = updateRegionRequestDto.Code,
+                RegionImageUrl = updateRegionRequestDto.RegionImageUrl
+            };
+
+            regionDomainModel = await _regionRepository.UpdateRegionAsync(id, regionDomainModel);
 
             if (regionDomainModel == null)
             {
                 return NotFound();
             }
 
-            regionDomainModel.Name = updateRegionRequestDto.Name;
-            regionDomainModel.Code = updateRegionRequestDto.Code;
-            regionDomainModel.RegionImageUrl = updateRegionRequestDto.RegionImageUrl;
-
-            await _dbContext.SaveChangesAsync();
             //Convert bact domain model to dto
             var regionDto = new RegionDto
             {
@@ -117,16 +121,21 @@ namespace TrialApis.Controllers
 
         public async Task<IActionResult> DeleteRegion([FromRoute] Guid id)
         {
-            var regionDomainModel = await _dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
+            var regionDomainModel = await _regionRepository.DeleteRegionAsync(id);
+
             if (regionDomainModel == null)
             {
                 return NotFound();
             }
 
-            _dbContext.Regions.Remove(regionDomainModel);
-            await _dbContext.SaveChangesAsync();
+            var regionDto = new RegionDto
+            {
+                Name = regionDomainModel.Name,
+                Code = regionDomainModel.Code,
+                RegionImageUrl = regionDomainModel.RegionImageUrl
+            };
 
-            return Ok();
+            return Ok(regionDto);
         }
     }
 }
