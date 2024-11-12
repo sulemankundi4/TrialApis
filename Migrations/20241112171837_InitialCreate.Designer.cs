@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrialApis.Data;
 
@@ -10,9 +11,11 @@ using TrialApis.Data;
 namespace TrialApis.Migrations
 {
     [DbContext(typeof(NZWalksDbContext))]
-    partial class NZWalksDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241112171837_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -106,9 +109,6 @@ namespace TrialApis.Migrations
 
                     b.Property<Guid>("DifficultyId")
                         .HasColumnType("TEXT");
-
-                    b.Property<double>("LengthInKm")
-                        .HasColumnType("REAL");
 
                     b.Property<string>("Name")
                         .IsRequired()

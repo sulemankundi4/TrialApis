@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TrialApis.Data;
+using TrialApis.Mappings;
 using TrialApis.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<NZWalksDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("NZWalksConnectionString")));
 
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+builder.Services.AddScoped<IWalkRepository, WalkRepository>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 var app = builder.Build();
 

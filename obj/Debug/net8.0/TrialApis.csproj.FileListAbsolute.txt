@@ -132,3 +132,4 @@ F:\CODING ARENA\TrialApis\TrialApis\obj\Debug\net8.0\TrialApis.pdb
 F:\CODING ARENA\TrialApis\TrialApis\obj\Debug\net8.0\TrialApis.genruntimeconfig.cache
 F:\CODING ARENA\TrialApis\TrialApis\obj\Debug\net8.0\ref\TrialApis.dll
 F:\CODING ARENA\TrialApis\TrialApis\obj\Debug\net8.0\TrialApis.sourcelink.json
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\AutoMapper.dll
