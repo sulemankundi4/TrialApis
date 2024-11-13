@@ -10,5 +10,7 @@ namespace TrialApis.Repositories
       Task<Walk?> GetSingleWalkAsync(Guid id);
 
       Task<Walk?> UpdateWalkByIdAsync(Guid id, Walk walk);
+
+      Task<Walk?> DeleteWalkAsync(Guid id);
    }
 }

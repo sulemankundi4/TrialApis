@@ -58,5 +58,18 @@ namespace TrialApis.Repositories
          await _dbContext.SaveChangesAsync();
          return existingWalkDomain;
       }
+
+      public async Task<Walk?> DeleteWalkAsync(Guid id)
+      {
+         var existingWalk = _dbContext.Walks.Find(id);
+         if (existingWalk == null)
+         {
+            return null;
+         }
+
+         _dbContext.Remove(existingWalk);
+         await _dbContext.SaveChangesAsync();
+         return existingWalk;
+      }
    }
 }

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using TrialApis.CustomActionFilters;
 using TrialApis.Models.Domains;
 using TrialApis.Models.DTOs;
 using TrialApis.Repositories;
@@ -19,8 +20,10 @@ namespace TrialApis.Controllers
       }
 
       [HttpPost]
+      [ValidateModel]
       public async Task<IActionResult> AddWalk([FromBody] AddWalkRequestDto addWalkRequestDto)
       {
+
          var walkDomainModel = _mapper.Map<Walk>(addWalkRequestDto);
          await _walkRepository.AddWalkAsync(walkDomainModel);
 
@@ -49,6 +52,7 @@ namespace TrialApis.Controllers
       }
 
       [HttpPut("{id:guid}")]
+      [ValidateModel]
       public async Task<IActionResult> UpdateWalkAsync(Guid id, UpdateWalkRequestDto updateWalkRequestDto)
       {
 
@@ -63,6 +67,19 @@ namespace TrialApis.Controllers
 
          return Ok(_mapper.Map<WalkDto>(walkDomainModel));
 
+
+      }
+
+      [HttpDelete("{id:guid}")]
+      public async Task<IActionResult> DeleteWalk([FromRoute] Guid id)
+      {
+         var walkDomainModel = _walkRepository.DeleteWalkAsync(id);
+         if (walkDomainModel == null)
+         {
+            return NotFound();
+         }
+
+         return Ok(_mapper.Map<WalkDto>(walkDomainModel));
       }
    }
 }

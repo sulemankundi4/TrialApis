@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TrialApis.CustomActionFilters;
 using TrialApis.Data;
 using TrialApis.Models.Domains;
 using TrialApis.Models.DTOs;
@@ -46,25 +47,25 @@ namespace TrialApis.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> CreateRegion([FromBody] AddRegionRequestDto requestRegionData)
         {
-
             var regionDomainModel = _mapper.Map<Region>(requestRegionData);
-
             regionDomainModel = await _regionRepository.CreateAsync(regionDomainModel);
 
             // Map data back to the dto
             var regionDto = _mapper.Map<RegionDto>(regionDomainModel);
 
             return CreatedAtAction(nameof(GetRegionById), new { Id = regionDto.Id }, regionDto);
+
         }
 
         [HttpPut("{id:guid}")]
+        [ValidateModel]
         public async Task<IActionResult> UpdateRegion([FromRoute] Guid id, [FromBody] UpdateRegionRequestDto updateRegionRequestDto)
         {
 
             var regionDomainModel = _mapper.Map<Region>(updateRegionRequestDto);
-
             regionDomainModel = await _regionRepository.UpdateRegionAsync(id, regionDomainModel);
 
             if (regionDomainModel == null)
@@ -73,6 +74,7 @@ namespace TrialApis.Controllers
             }
 
             return Ok(_mapper.Map<RegionDto>(regionDomainModel));
+
         }
 
         [HttpDelete("{id:guid}")]
