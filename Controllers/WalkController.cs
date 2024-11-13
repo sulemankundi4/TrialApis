@@ -27,5 +27,42 @@ namespace TrialApis.Controllers
          return Ok(_mapper.Map<WalkDto>(walkDomainModel));
       }
 
+      [HttpGet]
+      public async Task<IActionResult> GetWalks()
+      {
+         var AllWalksDomain = await _walkRepository.GetAllWalksAsync();
+
+         // Mapping domain model to dtos
+         return Ok(_mapper.Map<List<WalkDto>>(AllWalksDomain));
+      }
+
+      [HttpGet("{id:guid}")]
+      public async Task<IActionResult> GetSingleWalk(Guid id)
+      {
+         var checkWalkExists = await _walkRepository.GetSingleWalkAsync(id);
+         if (checkWalkExists == null)
+         {
+            return NotFound();
+         }
+
+         return Ok(_mapper.Map<WalkDto>(checkWalkExists));
+      }
+
+      [HttpPut("{id:guid}")]
+      public async Task<IActionResult> UpdateWalkAsync(Guid id, UpdateWalkRequestDto updateWalkRequestDto)
+      {
+
+         var walkDomainModel = _mapper.Map<Walk>(updateWalkRequestDto);
+
+         walkDomainModel = await _walkRepository.UpdateWalkByIdAsync(id, walkDomainModel);
+
+         if (walkDomainModel == null)
+         {
+            return NotFound();
+         }
+
+         return Ok(_mapper.Map<WalkDto>(walkDomainModel));
+
+      }
    }
 }

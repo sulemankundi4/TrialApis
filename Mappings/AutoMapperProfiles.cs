@@ -13,6 +13,8 @@ namespace TrialApis.Mappings
          CreateMap<UpdateRegionRequestDto, Region>().ReverseMap();
          CreateMap<Walk, AddWalkRequestDto>().ReverseMap();
          CreateMap<Walk, WalkDto>().ReverseMap();
+         CreateMap<DifficultyDto, Difficulty>().ReverseMap();
+         CreateMap<UpdateWalkRequestDto, Walk>().ReverseMap();
       }
    }
 }
