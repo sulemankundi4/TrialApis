@@ -133,3 +133,13 @@ F:\CODING ARENA\TrialApis\TrialApis\obj\Debug\net8.0\TrialApis.genruntimeconfig.
 F:\CODING ARENA\TrialApis\TrialApis\obj\Debug\net8.0\ref\TrialApis.dll
 F:\CODING ARENA\TrialApis\TrialApis\obj\Debug\net8.0\TrialApis.sourcelink.json
 F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\AutoMapper.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
