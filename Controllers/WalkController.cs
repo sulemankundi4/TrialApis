@@ -31,9 +31,9 @@ namespace TrialApis.Controllers
       }
 
       [HttpGet]
-      public async Task<IActionResult> GetWalks()
+      public async Task<IActionResult> GetWalks([FromQuery] string? filterOn, [FromQuery] string? filterQuery, [FromQuery] string? sortBy, [FromQuery] bool isAscending)
       {
-         var AllWalksDomain = await _walkRepository.GetAllWalksAsync();
+         var AllWalksDomain = await _walkRepository.GetAllWalksAsync(filterOn, filterQuery, sortBy, isAscending);
 
          // Mapping domain model to dtos
          return Ok(_mapper.Map<List<WalkDto>>(AllWalksDomain));
