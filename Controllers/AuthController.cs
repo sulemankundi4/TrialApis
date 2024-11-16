@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TrialApis.Models.DTOs.AuthDtos;
+using TrialApis.Repositories;
 
 namespace TrialApis.Controllers
 {
@@ -9,9 +10,11 @@ namespace TrialApis.Controllers
    public class AuthController : ControllerBase
    {
       private readonly UserManager<IdentityUser> _userManager;
-      public AuthController(UserManager<IdentityUser> userManager)
+      private readonly ITokenRepository _tokenRepository;
+      public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
       {
          _userManager = userManager;
+         _tokenRepository = tokenRepository;
       }
 
       [HttpPost]
@@ -51,7 +54,12 @@ namespace TrialApis.Controllers
             var checkUserPassword = await _userManager.CheckPasswordAsync(user, loginRequestDto.Password);
             if (checkUserPassword)
             {
-
+               var roles = await _userManager.GetRolesAsync(user);
+               if (roles != null)
+               {
+                  var jwtToken = _tokenRepository.CreateJWTToken(user, roles.ToList());
+                  return Ok(jwtToken);
+               }
                //Create token
                return Ok("dsf");
             }
