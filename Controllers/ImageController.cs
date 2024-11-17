@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using TrialApis.Models.Domains;
 using TrialApis.Models.DTOs;
+using TrialApis.Repositories;
 
 namespace TrialApis.Controllers
 {
@@ -8,6 +10,12 @@ namespace TrialApis.Controllers
    [ApiController]
    public class ImageController : ControllerBase
    {
+      private readonly IImageRepository _imageRepository;
+      public ImageController(IImageRepository imageRepository)
+      {
+         _imageRepository = imageRepository;
+      }
+
       [HttpPost]
       [Route("Upload")]
       public async Task<IActionResult> Upload([FromForm] ImagesRequestDto imagesRequestDto)
@@ -15,8 +23,18 @@ namespace TrialApis.Controllers
          ValidateFileUpload(imagesRequestDto);
          if (ModelState.IsValid)
          {
-            //user repository to upload image
+            var imageDomainModel = new Image
+            {
+               File = imagesRequestDto.File,
+               FileExtension = Path.GetExtension(imagesRequestDto.File.FileName),
+               FileSizeInBytes = imagesRequestDto.File.Length,
+               FileName = imagesRequestDto.FileName,
+               FileDescription = imagesRequestDto.FileDescription
+            };
 
+            //user repository to upload image
+            await _imageRepository.Upload(imageDomainModel);
+            return Ok(imageDomainModel);
          }
 
          return BadRequest(ModelState);
