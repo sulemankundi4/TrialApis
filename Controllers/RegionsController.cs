@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,20 +18,23 @@ namespace TrialApis.Controllers
         private readonly NZWalksDbContext _dbContext;
         private readonly IRegionRepository _regionRepository;
         private readonly IMapper _mapper;
-        public RegionsController(NZWalksDbContext dbContext, IRegionRepository regionRepository, IMapper mapper)
+        private readonly ILogger _logger;
+
+        public RegionsController(NZWalksDbContext dbContext, IRegionRepository regionRepository, IMapper mapper, ILogger<RegionsController> logger)
         {
             _dbContext = dbContext;
             _regionRepository = regionRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
-        [Authorize(Roles = "Reader")]
+        // [Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetAll()
         {
             //Get Data from the database -- Domain Model
             var regionsDomain = await _regionRepository.GetAllAsync();
-
+            throw new Exception("This is new wxcpe");
             // Return Dto
             return Ok(_mapper.Map<List<RegionDto>>(regionsDomain));
         }

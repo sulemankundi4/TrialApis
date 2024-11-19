@@ -143,3 +143,12 @@ F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.Pro
 F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.AspNetCore.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.Extensions.Logging.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.Formatting.Compact.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.Settings.Configuration.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
+F:\CODING ARENA\TrialApis\TrialApis\bin\Debug\net8.0\Serilog.Sinks.File.dll
